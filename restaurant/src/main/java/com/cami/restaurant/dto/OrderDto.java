@@ -22,8 +22,8 @@ public interface OrderDto {
         @NotNull Long dishId,
         @NotNull @Min(1) int quantity
     ){}
-
-    public record OrderCreationResponse(
+    //Lo que se envia al cliente despues de crear la orden
+    record OrderCreationResponse(
             Long orderId,
             OrderStatus status,
             Long total

@@ -177,5 +177,10 @@ public class OrderService {
         //hibernate este SUPERVISANDO constantemente el tiempo y detecte el cambio que ocurre en la memoria ram y quede auto-guardado o updated
     }
 
-
+    @Transactional
+    public void payOrder(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("la orden no puede ser pagada porque no existe"));
+        order.pay();
+    }
 }

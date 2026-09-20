@@ -82,4 +82,11 @@ public class Order {
     public List<OrderItem> getItems() {
         return Collections.unmodifiableList(this.items);
     }
+
+    public void pay() {
+        if(this.status == OrderStatus.PAID || this.status == OrderStatus.CANCELLED){
+            throw new IllegalStateException("No se puede pagar porque la orden ya ha sido pagada o ha sido cancelada");
+        }
+        this.status = OrderStatus.PAID;
+    }
 }

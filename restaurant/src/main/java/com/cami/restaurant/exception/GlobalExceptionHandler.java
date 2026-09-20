@@ -44,6 +44,6 @@ public class GlobalExceptionHandler {
         problem.setTitle("Conflicto en la operación");
         problem.setType(URI.create("https://api.restaurante.com/errors/state-conflict"));//La URI sirve para validar el detectar el error en el frontend, ya que no es idonio detectarlo con lenguaje humano como lo es Title ni con el estado HTTP ya que es demasaido general, URI es mas especifico
         problem.setProperty("timestamp", Instant.now());
-        return problem; // devolvemos el error en un JSON
+        return problem; // devolvemos el error en un JSON el cual el cliente en el FRONTEND nunca lo ve, esto es solo para el desarrollador que consume la API el FRONTEND DEVELOPER, el frontend es el que decide como mostrarselo al usuario
     }
 }
