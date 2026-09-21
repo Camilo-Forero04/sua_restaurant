@@ -1,6 +1,7 @@
 package com.cami.restaurant.model;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Getter
 //el setter no debe ir a nivel clase si no solo en los atributos que lo necesitan,
 // para evitar que por ejemplo se modifique el id
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RestaurantTable {
 
     //Se utiliza como PK o FK porque hace mucho mas rapido las busquedas
@@ -28,10 +29,17 @@ public class RestaurantTable {
     // @GeneratedValue(strategy = GenerationType.UUID) solo se utiliza
     // con el id
     //añadir UUID (indetificador alfanumerico e.g. 12b31-2a3123-2g21)
+    @Column(nullable = false, updatable = false)
     private UUID qrToken = UUID.randomUUID();
 
-    @Setter
     @Column(nullable = false, unique = true)
     private String name;
 
+    public RestaurantTable(String name){
+        if(name == null || name.isBlank()){
+            throw new IllegalArgumentException("El nombre de la mesa no puede estar vacio");
+        }
+        this.name = name;
+        this.qrToken = UUID.randomUUID();
+    }
 }
